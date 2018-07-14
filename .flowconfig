@@ -1,0 +1,10 @@
+[ignore]
+<PROJECT_ROOT>/dist/.*
+
+[include]
+
+[libs]
+
+[options]
+module.name_mapper='^library$' -> '<PROJECT_ROOT>'
+module.name_mapper='^library\/\(.*\)$' -> '<PROJECT_ROOT>/\1'

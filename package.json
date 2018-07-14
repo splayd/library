@@ -1,0 +1,44 @@
+{
+  "name": "library",
+  "version": "0.0.0",
+  "description": "A functional interface for interacting with databases",
+  "keywords": ["database", "sql", "orm"],
+  "homepage": "https://github.com/splayd/library",
+  "bugs": "https://github.com/splayd/library/issues",
+  "license": "MIT",
+  "author": "Vinson Chuong <vinsonchuong@gmail.com>",
+  "main": "./index.js",
+  "repository": "splayd/library",
+  "scripts": {
+    "test": "standard -v --fix && flow && ava",
+    "release": "semantic-release",
+    "prepack": "build-esm"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "babel-preset-diff": "^4.0.0",
+    "babel-register": "^6.26.0",
+    "build-esm": "^3.2.1",
+    "flow-bin": "0.69.0",
+    "semantic-release": "^15.6.3",
+    "standard-esnext": "^4.0.3"
+  },
+  "babel": {
+    "presets": [
+      "diff"
+    ]
+  },
+  "ava": {
+    "concurrency": 4,
+    "files": [
+      "**/*.test.js",
+      "**/test.js"
+    ],
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  }
+}
