@@ -1,14 +1,14 @@
 {
-  "name": "library",
+  "name": "rumor-mill",
   "version": "0.0.0",
   "description": "A functional interface for interacting with databases",
   "keywords": ["database", "sql", "orm"],
-  "homepage": "https://github.com/splayd/library",
-  "bugs": "https://github.com/splayd/library/issues",
+  "homepage": "https://github.com/splayd/rumor-mill",
+  "bugs": "https://github.com/splayd/rumor-mill/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
   "main": "./index.js",
-  "repository": "splayd/library",
+  "repository": "splayd/rumor-mill",
   "scripts": {
     "test": "standard -v --fix && flow && ava",
     "release": "semantic-release",

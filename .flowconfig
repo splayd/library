@@ -6,5 +6,5 @@
 [libs]
 
 [options]
-module.name_mapper='^library$' -> '<PROJECT_ROOT>'
-module.name_mapper='^library\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
+module.name_mapper='^rumor-mill$' -> '<PROJECT_ROOT>'
+module.name_mapper='^rumor-mill\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
