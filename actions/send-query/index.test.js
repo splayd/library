@@ -1,11 +1,11 @@
 /* @flow */
 import test from 'ava'
-import { createInMemoryDb, close, query } from 'rumor-mill'
+import { createInMemoryDb, close, sendQuery } from 'rumor-mill'
 
 test('running queries', async t => {
   const db = await createInMemoryDb()
 
-  await query(
+  await sendQuery(
     db,
     `
     CREATE TABLE articles (
@@ -14,10 +14,10 @@ test('running queries', async t => {
     )
   `
   )
-  await query(db, "INSERT INTO articles (title) VALUES('Post 1')")
-  await query(db, "INSERT INTO articles (title) VALUES('Post 2')")
+  await sendQuery(db, "INSERT INTO articles (title) VALUES('Post 1')")
+  await sendQuery(db, "INSERT INTO articles (title) VALUES('Post 2')")
 
-  const rows = await query(db, 'SELECT * from articles')
+  const rows = await sendQuery(db, 'SELECT * from articles')
   t.deepEqual(rows, [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }])
 
   await close(db)
