@@ -3461,6 +3461,12 @@ json-schema-traverse@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
 
+json-sql-builder2@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/json-sql-builder2/-/json-sql-builder2-1.0.19.tgz#c00398eea0b68cc531653a0817a2bc68dafc8067"
+  dependencies:
+    lodash "^4.17.4"
+
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
