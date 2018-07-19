@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "json-sql-builder2": "^1.0.19",
+    "mysql": "^2.15.0",
     "sqlite3": "^4.0.1"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "babel-preset-diff": "^4.0.0",
     "babel-register": "^6.26.0",
     "build-esm": "^3.2.1",
+    "dockerode": "^2.5.5",
     "flow-bin": "0.69.0",
     "semantic-release": "^15.6.3",
     "standard-esnext": "^4.0.3"

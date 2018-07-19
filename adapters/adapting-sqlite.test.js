@@ -1,8 +1,9 @@
 /* @flow */
 import test from 'ava'
-import { createInMemoryDb, close, sendQuery } from 'rumor-mill'
+import { createInMemoryDb } from 'rumor-mill/clients'
+import { close, sendQuery, buildQuery } from 'rumor-mill/adapters'
 
-test('running queries', async t => {
+test('interacting with an in-memory SQLite database', async t => {
   const db = await createInMemoryDb()
 
   await sendQuery(db, {
@@ -14,6 +15,7 @@ test('running queries', async t => {
       `,
     values: []
   })
+
   await sendQuery(db, {
     sql: 'INSERT INTO articles (title) VALUES(?)',
     values: ['Post 1']
@@ -24,10 +26,14 @@ test('running queries', async t => {
     values: ['Post 2']
   })
 
-  const rows = await sendQuery(db, {
-    sql: 'SELECT * from articles',
-    values: []
-  })
+  const rows = await sendQuery(
+    db,
+    buildQuery(db, {
+      $select: {
+        $from: 'articles'
+      }
+    })
+  )
   t.deepEqual(rows, [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }])
 
   await close(db)
