@@ -25,7 +25,7 @@ test('interacting with a PostgreSQL database', async t => {
       $define: {
         id: {
           $column: {
-            $type: 'integer',
+            $type: 'serial',
             $primary: true,
             $notNull: true
           }
@@ -38,16 +38,16 @@ test('interacting with a PostgreSQL database', async t => {
   await sendQuery(db, {
     $insert: {
       $table: 'articles',
-      $columns: ['id', 'title'],
-      $values: [1, 'Post 1']
+      $columns: ['title'],
+      $values: ['Post 1']
     }
   })
 
   await sendQuery(db, {
     $insert: {
       $table: 'articles',
-      $columns: ['id', 'title'],
-      $values: [2, 'Post 2']
+      $columns: ['title'],
+      $values: ['Post 2']
     }
   })
 
