@@ -1,19 +1,15 @@
 /* @flow */
+import type { ClientQuery, Rows } from 'rumor-mill/adapters'
 import { branchOnClient } from 'rumor-mill/clients'
 import { promiseFromCallback } from 'rumor-mill/lib'
-
-type Query = {
-  sql: string,
-  values: Array<string | number | boolean | null>
-}
 
 export default branchOnClient({
   async mysql(
     {
       mysql: { pool }
     },
-    query: Query
-  ): Promise<Array<{}>> {
+    query: ClientQuery
+  ): Promise<Rows> {
     const results = await promiseFromCallback(callback =>
       pool.query(query, callback)
     )
@@ -24,8 +20,8 @@ export default branchOnClient({
     {
       sqlite: { database }
     },
-    { sql, values }: Query
-  ): Promise<Array<{}>> {
+    { sql, values }: ClientQuery
+  ): Promise<Rows> {
     return promiseFromCallback(callback => database.all(sql, values, callback))
   }
 })

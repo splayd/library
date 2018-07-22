@@ -1,8 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
-import { connectToMysqlDb } from 'rumor-mill/clients'
-import { close, sendQuery, buildQuery } from 'rumor-mill/adapters'
+import { connectToMysqlDb, close, sendQuery } from 'rumor-mill'
 
 test('interacting with a MySQL database', async t => {
   const container = await startContainer({
@@ -22,32 +21,43 @@ test('interacting with a MySQL database', async t => {
   )
 
   await sendQuery(db, {
-    sql: `
-        CREATE TABLE articles (
-          id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-          title TEXT NOT NULL
-        )
-      `,
-    values: []
-  })
-  await sendQuery(db, {
-    sql: 'INSERT INTO articles (title) VALUES(?)',
-    values: ['Post 1']
-  })
-
-  await sendQuery(db, {
-    sql: 'INSERT INTO articles (title) VALUES(?)',
-    values: ['Post 2']
-  })
-
-  const rows = await sendQuery(
-    db,
-    buildQuery(db, {
-      $select: {
-        $from: 'articles'
+    $createTable: {
+      $table: 'articles',
+      $define: {
+        id: {
+          $column: {
+            $type: 'BIGINT',
+            $primary: true,
+            $notNull: true,
+            $autoInc: true
+          }
+        },
+        title: { $column: { $type: 'TEXT', $notNull: true } }
       }
-    })
-  )
+    }
+  })
+
+  await sendQuery(db, {
+    $insert: {
+      $table: 'articles',
+      $columns: ['title'],
+      $values: ['Post 1']
+    }
+  })
+
+  await sendQuery(db, {
+    $insert: {
+      $table: 'articles',
+      $columns: ['title'],
+      $values: ['Post 2']
+    }
+  })
+
+  const rows = await sendQuery(db, {
+    $select: {
+      $from: 'articles'
+    }
+  })
   t.deepEqual(rows, [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }])
 
   await close(db)
