@@ -16,7 +16,17 @@ export default branchOnClient({
     return JSON.parse(JSON.stringify(results))
   },
 
-  async sqlite(
+  async postgresql(
+    {
+      postgresql: { pool }
+    },
+    { sql, values }: ClientQuery
+  ): Promise<Rows> {
+    const result = await pool.query(sql, values)
+    return result.rows
+  },
+
+  sqlite(
     {
       sqlite: { database }
     },

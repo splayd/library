@@ -20,6 +20,7 @@
   "dependencies": {
     "json-sql-builder2": "^1.0.19",
     "mysql": "^2.15.0",
+    "pg": "^7.4.3",
     "sqlite3": "^4.0.1"
   },
   "devDependencies": {

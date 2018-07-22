@@ -7,6 +7,10 @@ export default branchOnClient({
     await promiseFromCallback(callback => pool.end(callback))
   },
 
+  async postgresql({ postgresql: { pool } }) {
+    await pool.end()
+  },
+
   async sqlite({ sqlite: { database } }) {
     await promiseFromCallback(callback => database.close(callback))
   }

@@ -9,6 +9,11 @@ export default branchOnClient({
     return builder.build(query)
   },
 
+  postgresql(database, query: Query): ClientQuery {
+    const builder = new SQLBuilder('PostgreSQL')
+    return builder.build(query)
+  },
+
   sqlite(database, query: Query): ClientQuery {
     const builder = new SQLBuilder('SQLite')
     return builder.build(query)
