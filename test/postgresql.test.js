@@ -1,7 +1,13 @@
 /* @flow */
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
-import { connectToPostgreSQL, close, sendQuery, createTable } from 'rumor-mill'
+import {
+  connectToPostgreSQL,
+  close,
+  sendQuery,
+  createTable,
+  insertRow
+} from 'rumor-mill'
 
 test('interacting with a PostgreSQL database', async t => {
   const container = await startContainer({
@@ -23,22 +29,8 @@ test('interacting with a PostgreSQL database', async t => {
     { name: 'id', type: 'primaryKey' },
     { name: 'title', type: 'string' }
   ])
-
-  await sendQuery(db, {
-    $insert: {
-      $table: 'articles',
-      $columns: ['title'],
-      $values: ['Post 1']
-    }
-  })
-
-  await sendQuery(db, {
-    $insert: {
-      $table: 'articles',
-      $columns: ['title'],
-      $values: ['Post 2']
-    }
-  })
+  await insertRow(db, 'articles', { title: 'Post 1' })
+  await insertRow(db, 'articles', { title: 'Post 2' })
 
   const rows = await sendQuery(db, {
     $select: {

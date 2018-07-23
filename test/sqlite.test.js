@@ -1,6 +1,12 @@
 /* @flow */
 import test from 'ava'
-import { openSQLite, close, createTable, sendQuery } from 'rumor-mill'
+import {
+  openSQLite,
+  close,
+  createTable,
+  insertRow,
+  sendQuery
+} from 'rumor-mill'
 
 test('interacting with an in-memory SQLite database', async t => {
   const db = await openSQLite(':memory:')
@@ -9,22 +15,8 @@ test('interacting with an in-memory SQLite database', async t => {
     { name: 'id', type: 'primaryKey' },
     { name: 'title', type: 'string' }
   ])
-
-  await sendQuery(db, {
-    $insert: {
-      $table: 'articles',
-      $columns: ['title'],
-      $values: ['Post 1']
-    }
-  })
-
-  await sendQuery(db, {
-    $insert: {
-      $table: 'articles',
-      $columns: ['title'],
-      $values: ['Post 2']
-    }
-  })
+  await insertRow(db, 'articles', { title: 'Post 1' })
+  await insertRow(db, 'articles', { title: 'Post 2' })
 
   const rows = await sendQuery(db, {
     $select: {

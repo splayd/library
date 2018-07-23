@@ -14,10 +14,14 @@ export default function<Inputs: any, Output>(branches: {
 }): (Database, ...Inputs) => Output {
   return (database, ...inputs) => {
     switch (database.type) {
-      case 'mysql': return branches.mysql(database, ...inputs)
-      case 'postgresql': return branches.postgresql(database, ...inputs)
-      case 'sqlite': return branches.sqlite(database, ...inputs)
-      default: throw new Error('Unexpected Database Client Type')
+      case 'mysql':
+        return branches.mysql(database, ...inputs)
+      case 'postgresql':
+        return branches.postgresql(database, ...inputs)
+      case 'sqlite':
+        return branches.sqlite(database, ...inputs)
+      default:
+        throw new Error('Unexpected Database Client Type')
     }
   }
 }
