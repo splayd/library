@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "json-sql-builder2": "^1.0.19",
+    "lodash": "^4.17.10",
     "mysql": "^2.15.0",
     "pg": "^7.4.3",
     "sqlite3": "^4.0.1"

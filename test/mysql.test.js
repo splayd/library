@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
-import { connectToMysqlDb, close, sendQuery } from 'rumor-mill'
+import { connectToMysqlDb, close, sendQuery, createTable } from 'rumor-mill'
 
 test('interacting with a MySQL database', async t => {
   const container = await startContainer({
@@ -20,22 +20,10 @@ test('interacting with a MySQL database', async t => {
     `mysql://user:password@127.0.0.1:${port}/database`
   )
 
-  await sendQuery(db, {
-    $createTable: {
-      $table: 'articles',
-      $define: {
-        id: {
-          $column: {
-            $type: 'BIGINT',
-            $primary: true,
-            $notNull: true,
-            $autoInc: true
-          }
-        },
-        title: { $column: { $type: 'TEXT', $notNull: true } }
-      }
-    }
-  })
+  await createTable(db, 'articles', [
+    { name: 'id', type: 'primaryKey' },
+    { name: 'title', type: 'string' }
+  ])
 
   await sendQuery(db, {
     $insert: {
