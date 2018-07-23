@@ -1,12 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
-import {
-  connectToPostgresqlDb,
-  close,
-  sendQuery,
-  createTable
-} from 'rumor-mill'
+import { connectToPostgreSQL, close, sendQuery, createTable } from 'rumor-mill'
 
 test('interacting with a PostgreSQL database', async t => {
   const container = await startContainer({
@@ -20,7 +15,7 @@ test('interacting with a PostgreSQL database', async t => {
   })
   const port = container.metadata.NetworkSettings.Ports['5432/tcp'][0].HostPort
 
-  const db = await connectToPostgresqlDb(
+  const db = await connectToPostgreSQL(
     `postgresql://user:password@127.0.0.1:${port}/database`
   )
 

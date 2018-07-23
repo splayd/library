@@ -1,9 +1,9 @@
 /* @flow */
 import test from 'ava'
-import { createInMemoryDb, close, createTable, sendQuery } from 'rumor-mill'
+import { openSQLite, close, createTable, sendQuery } from 'rumor-mill'
 
 test('interacting with an in-memory SQLite database', async t => {
-  const db = await createInMemoryDb()
+  const db = await openSQLite(':memory:')
 
   await createTable(db, 'articles', [
     { name: 'id', type: 'primaryKey' },

@@ -1,16 +1,16 @@
 /* eslint-disable flowtype/no-weak-types */
 /* @flow */
 import type {
-  DatabaseWithMySQL,
-  DatabaseWithPostgreSQL,
-  DatabaseWithSQLite,
-  Database
+  Database,
+  MySQLDatabase,
+  PostgreSQLDatabase,
+  SQLiteDatabase
 } from 'rumor-mill/clients'
 
 export default function<Inputs: any, Output>(branches: {
-  mysql?: (DatabaseWithMySQL, ...Inputs) => Output,
-  postgresql?: (DatabaseWithPostgreSQL, ...Inputs) => Output,
-  sqlite?: (DatabaseWithSQLite, ...Inputs) => Output
+  mysql?: (MySQLDatabase, ...Inputs) => Output,
+  postgresql?: (PostgreSQLDatabase, ...Inputs) => Output,
+  sqlite?: (SQLiteDatabase, ...Inputs) => Output
 }): (Database, ...Inputs) => Output {
   return (database, ...inputs) => {
     if (database.mysql && branches.mysql) {

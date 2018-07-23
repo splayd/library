@@ -1,14 +1,14 @@
 /* @flow */
 export type {
   Database,
-  DatabaseWithMySQL,
-  DatabaseWithPostgreSQL,
-  DatabaseWithSQLite
+  MySQLDatabase,
+  PostgreSQLDatabase,
+  SQLiteDatabase
 } from './database'
 
-export { default as connectToMysqlDb } from './connect-to-mysql-db'
-export { default as connectToPostgresqlDb } from './connect-to-postgresql-db'
-export { default as createInMemoryDb } from './create-in-memory-db'
+export { default as connectToMySQL } from './connect-to-mysql'
+export { default as connectToPostgreSQL } from './connect-to-postgresql'
+export { default as openSQLite } from './open-sqlite'
 
 export { default as branchOnClient } from './branch-on-client'
 export { default as getClientType } from './get-client-type'

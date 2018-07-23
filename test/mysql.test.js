@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
-import { connectToMysqlDb, close, sendQuery, createTable } from 'rumor-mill'
+import { connectToMySQL, close, sendQuery, createTable } from 'rumor-mill'
 
 test('interacting with a MySQL database', async t => {
   const container = await startContainer({
@@ -16,7 +16,7 @@ test('interacting with a MySQL database', async t => {
   })
   const port = container.metadata.NetworkSettings.Ports['3306/tcp'][0].HostPort
 
-  const db = await connectToMysqlDb(
+  const db = await connectToMySQL(
     `mysql://user:password@127.0.0.1:${port}/database`
   )
 

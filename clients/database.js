@@ -1,27 +1,18 @@
 /* @flow */
-import type { Database as SQLiteDatabase } from 'sqlite3'
-import type { Pool as MySQLConnectionPool } from 'mysql/lib/Pool'
-import type { Pool as PostgreSQLConnectionPool } from 'pg'
+import type sqlite3 from 'sqlite3'
+import type { default as MySQLPool } from 'mysql/lib/Pool'
+import type pg from 'pg'
 
-export type DatabaseWithMySQL = {
-  mysql: { pool: MySQLConnectionPool },
-  postgresql?: empty,
-  sqlite?: empty
-}
+export type MySQLDatabase = {|
+  mysql: { pool: MySQLPool }
+|}
 
-export type DatabaseWithPostgreSQL = {
-  mysql?: empty,
-  postgresql: { pool: PostgreSQLConnectionPool },
-  sqlite?: empty
-}
+export type PostgreSQLDatabase = {|
+  postgresql: { pool: pg.Pool }
+|}
 
-export type DatabaseWithSQLite = {
-  mysql?: empty,
-  postgresql?: empty,
-  sqlite: { database: SQLiteDatabase }
-}
+export type SQLiteDatabase = {|
+  sqlite: { database: sqlite3.Database }
+|}
 
-export type Database =
-  | DatabaseWithMySQL
-  | DatabaseWithPostgreSQL
-  | DatabaseWithSQLite
+export type Database = MySQLDatabase | PostgreSQLDatabase | SQLiteDatabase
