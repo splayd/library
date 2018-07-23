@@ -9,6 +9,7 @@ export default async function(filename: string): Promise<Database> {
     database.once('error', reject)
   })
   return {
+    type: 'sqlite',
     sqlite: { database }
   }
 }

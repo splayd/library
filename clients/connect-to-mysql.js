@@ -11,6 +11,7 @@ export default async function(url: string): Promise<Database> {
   )
 
   return {
+    type: 'mysql',
     mysql: { pool }
   }
 }

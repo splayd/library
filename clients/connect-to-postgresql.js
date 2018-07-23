@@ -9,6 +9,7 @@ export default async function(url: string): Promise<Database> {
   await retry(10, 3000, () => pool.query('SELECT 1'))
 
   return {
+    type: 'postgresql',
     postgresql: { pool }
   }
 }

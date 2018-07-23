@@ -1,6 +1,5 @@
 /* @flow */
 import type { Database } from 'rumor-mill/clients'
-import { getClientType } from 'rumor-mill/clients'
 import { sendQuery } from 'rumor-mill/actions'
 import { fromPairs } from 'lodash'
 
@@ -56,21 +55,19 @@ export default async function(
   tableName: string,
   columns: Array<Column>
 ): Promise<void> {
-  const clientType = getClientType(database)
-
   await sendQuery(database, {
     $createTable: {
       $table: tableName,
       $define: fromPairs(
         columns.map(({ name, type, allowNull = false }) => {
           if (type === 'primaryKey') {
-            return [name, primaryKey[clientType]]
+            return [name, primaryKey[database.type]]
           } else {
             return [
               name,
               {
                 $column: {
-                  $type: types[clientType][type],
+                  $type: types[database.type][type],
                   $notNull: !allowNull
                 }
               }

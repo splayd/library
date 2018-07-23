@@ -8,19 +8,16 @@ import type {
 } from 'rumor-mill/clients'
 
 export default function<Inputs: any, Output>(branches: {
-  mysql?: (MySQLDatabase, ...Inputs) => Output,
-  postgresql?: (PostgreSQLDatabase, ...Inputs) => Output,
-  sqlite?: (SQLiteDatabase, ...Inputs) => Output
+  mysql: (MySQLDatabase, ...Inputs) => Output,
+  postgresql: (PostgreSQLDatabase, ...Inputs) => Output,
+  sqlite: (SQLiteDatabase, ...Inputs) => Output
 }): (Database, ...Inputs) => Output {
   return (database, ...inputs) => {
-    if (database.mysql && branches.mysql) {
-      return branches.mysql(database, ...inputs)
-    } else if (database.postgresql && branches.postgresql) {
-      return branches.postgresql(database, ...inputs)
-    } else if (database.sqlite && branches.sqlite) {
-      return branches.sqlite(database, ...inputs)
-    } else {
-      throw new Error('Unexpected Database Client')
+    switch (database.type) {
+      case 'mysql': return branches.mysql(database, ...inputs)
+      case 'postgresql': return branches.postgresql(database, ...inputs)
+      case 'sqlite': return branches.sqlite(database, ...inputs)
+      default: throw new Error('Unexpected Database Client Type')
     }
   }
 }
