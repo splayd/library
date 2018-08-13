@@ -2,11 +2,12 @@
 import test from 'ava'
 import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
 import {
-  connectToMySQL,
-  close,
-  sendQuery,
-  createTable,
-  insertRow
+  openDatabase,
+  closeDatabase,
+  columnTypes,
+  createTables,
+  insertRows,
+  selectRows
 } from 'rumor-mill'
 
 test('interacting with a MySQL database', async t => {
@@ -22,24 +23,24 @@ test('interacting with a MySQL database', async t => {
   })
   const port = container.metadata.NetworkSettings.Ports['3306/tcp'][0].HostPort
 
-  const db = await connectToMySQL(
+  const database1 = await openDatabase(
     `mysql://user:password@127.0.0.1:${port}/database`
   )
 
-  await createTable(db, 'articles', [
-    { name: 'id', type: 'primaryKey' },
-    { name: 'title', type: 'string' }
-  ])
-  await insertRow(db, 'articles', { title: 'Post 1' })
-  await insertRow(db, 'articles', { title: 'Post 2' })
-
-  const rows = await sendQuery(db, {
-    $select: {
-      $from: 'articles'
-    }
+  const database2 = await createTables(database1, {
+    articles: { id: columnTypes.primaryKey, title: columnTypes.string }
   })
-  t.deepEqual(rows, [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }])
+  await insertRows(database2, 'articles', [
+    { title: 'Post 1' },
+    { title: 'Post 2' }
+  ])
 
-  await close(db)
+  const articles = await selectRows(database2, 'articles')
+  t.deepEqual(articles, [
+    { id: 1, title: 'Post 1' },
+    { id: 2, title: 'Post 2' }
+  ])
+
+  await closeDatabase(database2)
   await stopContainer(container)
 })

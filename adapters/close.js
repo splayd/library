@@ -1,8 +1,8 @@
 /* @flow */
-import { branchOnClient } from 'rumor-mill/clients'
+import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 
-export default branchOnClient({
+export default branch({
   async mysql({ mysql: { pool } }) {
     await promiseFromCallback(callback => pool.end(callback))
   },

@@ -1,8 +1,8 @@
 /* @flow */
-import type { Database } from 'rumor-mill/clients'
+import type { Client } from 'rumor-mill/interface'
 import type { Query, Rows } from 'rumor-mill/adapters'
-import { buildQuery, sendQuery } from 'rumor-mill/adapters'
+import { buildSQLQuery, sendSQLQuery } from 'rumor-mill/adapters'
 
-export default function(database: Database, query: Query): Promise<Rows> {
-  return sendQuery(database, buildQuery(database, query))
+export default function(client: Client, query: Query): Promise<Rows> {
+  return sendSQLQuery(client, buildSQLQuery(client, query))
 }

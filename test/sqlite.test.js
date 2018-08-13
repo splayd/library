@@ -1,29 +1,34 @@
 /* @flow */
 import test from 'ava'
 import {
-  openSQLite,
-  close,
-  createTable,
-  insertRow,
-  sendQuery
+  openDatabase,
+  closeDatabase,
+  columnTypes,
+  createTables,
+  insertRows,
+  selectRows
 } from 'rumor-mill'
 
 test('interacting with an in-memory SQLite database', async t => {
-  const db = await openSQLite(':memory:')
+  const database1 = await openDatabase('sqlite://')
 
-  await createTable(db, 'articles', [
-    { name: 'id', type: 'primaryKey' },
-    { name: 'title', type: 'string' }
-  ])
-  await insertRow(db, 'articles', { title: 'Post 1' })
-  await insertRow(db, 'articles', { title: 'Post 2' })
-
-  const rows = await sendQuery(db, {
-    $select: {
-      $from: 'articles'
-    }
+  const database2 = await createTables(database1, {
+    articles: { id: columnTypes.primaryKey, title: columnTypes.string }
   })
-  t.deepEqual(rows, [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }])
+  const database3 = await createTables(database2, {
+    comment: { id: columnTypes.primaryKey, title: columnTypes.string }
+  })
 
-  await close(db)
+  await insertRows(database3, 'articles', [
+    { title: 'Post 1' },
+    { title: 'Post 2' }
+  ])
+
+  const articles = await selectRows(database3, 'articles')
+  t.deepEqual(articles, [
+    { id: 1, title: 'Post 1' },
+    { id: 2, title: 'Post 2' }
+  ])
+
+  await closeDatabase(database3)
 })
