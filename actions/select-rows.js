@@ -4,7 +4,7 @@ import { sendQuery } from 'rumor-mill/actions'
 
 export default function<
   Schema: {},
-  TableName: string,
+  TableName: $Keys<Schema>,
   Database: { client: Client, schema: Schema }
 >(
   { client, schema }: Database,
