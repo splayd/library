@@ -20,19 +20,20 @@
   "dependencies": {
     "json-sql-builder2": "^1.0.19",
     "lodash": "^4.17.10",
-    "mysql": "^2.15.0",
+    "mysql": "^2.16.0",
     "pg": "^7.4.3",
-    "sqlite3": "^4.0.1"
+    "sqlite3": "^4.0.2"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "babel-preset-diff": "^4.0.0",
-    "babel-register": "^6.26.0",
-    "build-esm": "^3.2.1",
-    "dockerode": "^2.5.5",
-    "flow-bin": "0.69.0",
-    "semantic-release": "^15.6.3",
-    "standard-esnext": "^4.0.3"
+    "@babel/core": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "ava": "^1.0.0-beta.8",
+    "babel-preset-diff": "^6.0.3",
+    "build-esm": "^4.0.1",
+    "dockerode": "^2.5.6",
+    "flow-bin": "0.80.0",
+    "semantic-release": "^15.9.14",
+    "standard-esnext": "^5.1.7"
   },
   "babel": {
     "presets": [

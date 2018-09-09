@@ -16,7 +16,7 @@ test('interacting with an in-memory SQLite database', async t => {
     articles: { id: columnTypes.primaryKey, title: columnTypes.string }
   })
   const database3 = await createTables(database2, {
-    comment: { id: columnTypes.primaryKey, title: columnTypes.string }
+    comments: { id: columnTypes.primaryKey, title: columnTypes.string }
   })
 
   await insertRows(database3, 'articles', [

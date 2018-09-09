@@ -16,10 +16,10 @@ export default async function<
   newTables: NewTables
 ): Promise<{
   client: Client,
-  schema: {
+  schema: {|
     ...$Exact<CurrentSchema>,
     ...$Exact<NewTables>
-  }
+  |}
 }> {
   for (const tableName of Object.keys(newTables)) {
     await sendQuery(client, {
@@ -37,6 +37,6 @@ export default async function<
 
   return {
     client,
-    schema: { ...schema, newTables }
+    schema: { ...schema, ...newTables }
   }
 }

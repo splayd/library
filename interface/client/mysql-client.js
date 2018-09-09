@@ -1,5 +1,5 @@
 /* @flow */
-import type { default as MySQLPool } from 'mysql/lib/Pool'
+import type MySQLPool from 'mysql/lib/Pool'
 
 export type MySQLClient = {|
   type: 'mysql',
