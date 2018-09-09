@@ -13,7 +13,7 @@
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
   "repository": "splayd/rumor-mill",
   "scripts": {
-    "test": "standard -v --fix && flow && ava",
+    "test": "standard -v --fix && flow && ava -v",
     "release": "semantic-release",
     "prepack": "build-esm"
   },
@@ -41,14 +41,8 @@
     ]
   },
   "ava": {
-    "concurrency": 4,
-    "files": [
-      "**/*.test.js",
-      "**/test.js"
-    ],
-    "babel": "inherit",
     "require": [
-      "babel-register"
+      "@babel/register"
     ]
   }
 }
