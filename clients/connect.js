@@ -14,6 +14,7 @@ export default function(url: string): Promise<Client> {
     case 'mysql:':
       return connectToMySQL(url)
     case 'postgresql:':
+    case 'postgres:':
       return connectToPostgreSQL(url)
     case 'sqlite:':
       return openSQLite(path || ':memory:')
