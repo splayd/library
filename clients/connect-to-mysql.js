@@ -5,8 +5,14 @@ import { createPool } from 'mysql'
 
 export default async function(url: string) {
   const pool = createPool(url)
-  await retry(10, 3000, () =>
-    promiseFromCallback(callback => pool.query('SELECT 1', callback))
-  )
+
+  await retry({
+    times: 10,
+    wait: 3000,
+    effect: () =>
+      promiseFromCallback(callback => pool.query('SELECT 1', callback)),
+    checkError: error => error.message.includes('Connection lost')
+  })
+
   return makeMySQLClient({ pool })
 }

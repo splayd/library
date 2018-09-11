@@ -10,8 +10,10 @@ import {
   selectRows
 } from 'rumor-mill'
 
-test('interacting with a PostgreSQL database', async t => {
-  const container = await startContainer({
+let container, port
+
+test.before(async () => {
+  container = await startContainer({
     Image: 'postgres:latest',
     PublishAllPorts: true,
     Env: [
@@ -20,8 +22,15 @@ test('interacting with a PostgreSQL database', async t => {
       'POSTGRES_PASSWORD=password'
     ]
   })
-  const port = container.metadata.NetworkSettings.Ports['5432/tcp'][0].HostPort
 
+  port = container.metadata.NetworkSettings.Ports['5432/tcp'][0].HostPort
+})
+
+test.after.always(async () => {
+  await stopContainer(container)
+})
+
+test('interacting with a PostgreSQL database', async t => {
   const database1 = await openDatabase(
     `postgresql://user:password@127.0.0.1:${port}/database`
   )
@@ -41,5 +50,13 @@ test('interacting with a PostgreSQL database', async t => {
   ])
 
   await closeDatabase(database2)
-  await stopContainer(container)
+})
+
+test('attempting to connect with incorrect credentials', async t => {
+  await t.throwsAsync(
+    openDatabase(`postgresql://user:wrong@127.0.0.1:${port}/database`),
+    {
+      message: 'password authentication failed for user "user"'
+    }
+  )
 })
