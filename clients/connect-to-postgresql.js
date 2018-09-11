@@ -11,7 +11,8 @@ export default async function(url: string) {
     wait: 3000,
     effect: () => pool.query('SELECT 1'),
     checkError: error =>
-      error.message.includes('Connection terminated unexpectedly')
+      error.message.includes('Connection terminated unexpectedly') ||
+      error.message.includes('ECONNRESET')
   })
 
   return makePostgreSQLClient({ pool })
