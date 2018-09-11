@@ -1,4 +1,7 @@
 group: travis_latest
+os:
+- linux
+- osx
 services:
 - docker
 language: node_js
