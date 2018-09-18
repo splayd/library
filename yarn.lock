@@ -1284,14 +1284,15 @@ buffer-writer@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buffer-writer/-/buffer-writer-1.0.1.tgz#22a936901e3029afcd7547eb4487ceb697a3bf08"
 
-build-esm@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/build-esm/-/build-esm-4.0.1.tgz#9d86c8322be4bcf2f0880468e7fd27b288eff846"
+build-esm@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/build-esm/-/build-esm-4.1.1.tgz#083927f31b62806b99c4064699dcbcc3a6bc0e81"
   dependencies:
     "@babel/core" "^7.0.0"
     mkdirp "^0.5.1"
     mz "^2.7.0"
     npm-packlist "^1.1.11"
+    overdub "^1.2.0"
     rimraf "^2.6.2"
 
 builtin-modules@^1.0.0:
@@ -1887,6 +1888,18 @@ debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
+debug@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.5.tgz#c2418fbfd7a29f4d4f70ff4cea604d4b64c46407"
+  dependencies:
+    ms "^2.1.1"
+
+debug@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.0.1.tgz#f9bb36d439b8d1f0dd52d8fb6b46e4ebb8c1cd5b"
+  dependencies:
+    ms "^2.1.1"
+
 debuglog@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/debuglog/-/debuglog-1.0.1.tgz#aa24ffb9ac3df9a2351837cfb2d279360cd78492"
@@ -2030,21 +2043,21 @@ dir-glob@^2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
-docker-modem@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/docker-modem/-/docker-modem-1.0.6.tgz#0db8f585faad679e67625c27c83954e747ad0190"
+docker-modem@1.0.x:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/docker-modem/-/docker-modem-1.0.7.tgz#69702a95c060eeb6775f79ccdcc734e5946972a4"
   dependencies:
     JSONStream "1.3.2"
-    debug "^3.1.0"
+    debug "^3.2.5"
     readable-stream "~1.0.26-4"
     split-ca "^1.0.0"
 
-dockerode@^2.5.6:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-2.5.6.tgz#f51c98bb95f25bc2e1b8f8d6a9ade36da77e2be9"
+dockerode@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-2.5.7.tgz#13dc9ec0f7f353ac0e512249e77f32d1aaa1199e"
   dependencies:
     concat-stream "~1.6.2"
-    docker-modem "^1.0.6"
+    docker-modem "1.0.x"
     tar-fs "~1.16.3"
 
 doctrine@1.5.0:
@@ -2645,9 +2658,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@0.80.0:
-  version "0.80.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.80.0.tgz#04cc1ee626a6f50786f78170c92ebe1745235403"
+flow-bin@0.81.0:
+  version "0.81.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.81.0.tgz#7f0a733dce1dad3cb1447c692639292dc3d60bf5"
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -3820,6 +3833,10 @@ lodash.without@~4.4.0:
 lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
 log-symbols@^2.2.0:
   version "2.2.0"
@@ -5512,9 +5529,9 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-semantic-release@^15.9.14:
-  version "15.9.14"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.9.14.tgz#108fa88649e318b85f728adc9375b12d68075726"
+semantic-release@^15.9.15:
+  version "15.9.15"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.9.15.tgz#e423dc5468f7e5bf601d5ca8bf4ae6d4ada5eadf"
   dependencies:
     "@semantic-release/commit-analyzer" "^6.0.0"
     "@semantic-release/error" "^2.2.0"
@@ -5523,7 +5540,7 @@ semantic-release@^15.9.14:
     "@semantic-release/release-notes-generator" "^7.0.0"
     aggregate-error "^1.0.0"
     cosmiconfig "^5.0.1"
-    debug "^3.1.0"
+    debug "^4.0.0"
     env-ci "^2.4.0"
     execa "^1.0.0"
     figures "^2.0.0"
