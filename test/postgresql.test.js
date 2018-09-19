@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
+import { startContainer, removeContainer } from 'sidelifter'
 import {
   openDatabase,
   closeDatabase,
@@ -14,25 +14,24 @@ let container, port
 
 test.before(async () => {
   container = await startContainer({
-    Image: 'postgres:latest',
-    PublishAllPorts: true,
-    Env: [
-      'POSTGRES_DB=database',
-      'POSTGRES_USER=user',
-      'POSTGRES_PASSWORD=password'
-    ]
+    image: 'postgres:latest',
+    env: {
+      POSTGRES_DB: 'database',
+      POSTGRES_USER: 'user',
+      POSTGRES_PASSWORD: 'password'
+    }
   })
 
-  port = container.metadata.NetworkSettings.Ports['5432/tcp'][0].HostPort
+  port = container.ports.get(5432)
 })
 
 test.after.always(async () => {
-  await stopContainer(container)
+  await removeContainer(container)
 })
 
 test('interacting with a PostgreSQL database', async t => {
   const database1 = await openDatabase(
-    `postgresql://user:password@127.0.0.1:${port}/database`
+    `postgresql://user:password@127.0.0.1:${String(port)}/database`
   )
 
   const database2 = await createTables(database1, {
@@ -54,7 +53,7 @@ test('interacting with a PostgreSQL database', async t => {
 
 test('attempting to connect with incorrect credentials', async t => {
   await t.throwsAsync(
-    openDatabase(`postgresql://user:wrong@127.0.0.1:${port}/database`),
+    openDatabase(`postgresql://user:wrong@127.0.0.1:${String(port)}/database`),
     {
       message: 'password authentication failed for user "user"'
     }

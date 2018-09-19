@@ -2052,7 +2052,7 @@ docker-modem@1.0.x:
     readable-stream "~1.0.26-4"
     split-ca "^1.0.0"
 
-dockerode@^2.5.7:
+dockerode@^2.5.6, dockerode@^2.5.7:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-2.5.7.tgz#13dc9ec0f7f353ac0e512249e77f32d1aaa1199e"
   dependencies:
@@ -5634,6 +5634,13 @@ shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
 
+sidelifter@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sidelifter/-/sidelifter-1.1.1.tgz#92df29e42573ecad2d68c2b79e751f1a90210b06"
+  dependencies:
+    dockerode "^2.5.6"
+    stream-buffers "^3.0.2"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -5918,6 +5925,10 @@ static-extend@^0.1.1:
   dependencies:
     define-property "^0.2.5"
     object-copy "^0.1.0"
+
+stream-buffers@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-3.0.2.tgz#5249005a8d5c2d00b3a32e6e0a6ea209dc4f3521"
 
 stream-combiner2@~1.1.1:
   version "1.1.1"

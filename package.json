@@ -31,6 +31,7 @@
     "flow-bin": "0.81.0",
     "overdub": "^1.2.0",
     "semantic-release": "^15.9.15",
+    "sidelifter": "^1.1.1",
     "standard-esnext": "^5.1.7"
   },
   "ava": {

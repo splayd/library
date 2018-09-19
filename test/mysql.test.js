@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { startContainer, stopContainer } from 'rumor-mill/test/helpers'
+import { startContainer, removeContainer } from 'sidelifter'
 import {
   openDatabase,
   closeDatabase,
@@ -14,26 +14,25 @@ let container, port
 
 test.before(async () => {
   container = await startContainer({
-    Image: 'mysql:5',
-    PublishAllPorts: true,
-    Env: [
-      'MYSQL_RANDOM_ROOT_PASSWORD=1',
-      'MYSQL_DATABASE=database',
-      'MYSQL_USER=user',
-      'MYSQL_PASSWORD=password'
-    ]
+    image: 'mysql:5',
+    env: {
+      MYSQL_RANDOM_ROOT_PASSWORD: '1',
+      MYSQL_DATABASE: 'database',
+      MYSQL_USER: 'user',
+      MYSQL_PASSWORD: 'password'
+    }
   })
 
-  port = container.metadata.NetworkSettings.Ports['3306/tcp'][0].HostPort
+  port = container.ports.get(3306)
 })
 
 test.after.always(async () => {
-  await stopContainer(container)
+  await removeContainer(container)
 })
 
 test('interacting with a MySQL database', async t => {
   const database1 = await openDatabase(
-    `mysql://user:password@127.0.0.1:${port}/database`
+    `mysql://user:password@127.0.0.1:${String(port)}/database`
   )
 
   const database2 = await createTables(database1, {
@@ -55,7 +54,7 @@ test('interacting with a MySQL database', async t => {
 
 test('attempting to connect with incorrect credentials', async t => {
   await t.throwsAsync(
-    openDatabase(`mysql://user:wrong@127.0.0.1:${port}/database`),
+    openDatabase(`mysql://user:wrong@127.0.0.1:${String(port)}/database`),
     {
       message: /ER_ACCESS_DENIED_ERROR/
     }
