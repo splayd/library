@@ -21,18 +21,18 @@
     "json-sql-builder2": "^1.0.19",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
-    "pg": "^7.4.3",
+    "pg": "^7.5.0",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.8",
-    "build-esm": "^4.1.1",
+    "build-esm": "^4.2.0",
     "dockerode": "^2.5.7",
-    "flow-bin": "0.81.0",
-    "overdub": "^1.2.0",
-    "semantic-release": "^15.9.15",
-    "sidelifter": "^1.1.1",
-    "standard-esnext": "^5.1.7"
+    "flow-bin": "0.82.0",
+    "overdub": "^2.1.0",
+    "semantic-release": "^15.9.17",
+    "sidelifter": "^1.2.0",
+    "standard-esnext": "^5.1.8"
   },
   "ava": {
     "require": "overdub/register",
