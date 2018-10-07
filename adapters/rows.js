@@ -1,2 +1,4 @@
 /* @flow */
-export type Rows = Array<{}>
+import type { Row } from 'rumor-mill/adapters'
+
+export type Rows = Array<Row>

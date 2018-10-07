@@ -7,7 +7,8 @@ import {
   columnTypes,
   createTables,
   insertRows,
-  selectRows
+  selectRows,
+  streamRows
 } from 'rumor-mill'
 
 let container, port
@@ -59,4 +60,31 @@ test('attempting to connect with incorrect credentials', async t => {
       message: /ER_ACCESS_DENIED_ERROR/
     }
   )
+})
+
+test('streaming rows', async t => {
+  const database1 = await openDatabase(
+    `mysql://user:password@127.0.0.1:${String(port)}/database`
+  )
+
+  const database2 = await createTables(database1, {
+    'time-series': { id: columnTypes.primaryKey, value: columnTypes.integer }
+  })
+  await insertRows(database2, 'time-series', [
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+    { value: 4 },
+    { value: 5 }
+  ])
+
+  const rows = streamRows(database2, 'time-series')
+  t.deepEqual(await rows.next(), { done: false, value: { id: 1, value: 1 } })
+  t.deepEqual(await rows.next(), { done: false, value: { id: 2, value: 2 } })
+  t.deepEqual(await rows.next(), { done: false, value: { id: 3, value: 3 } })
+  t.deepEqual(await rows.next(), { done: false, value: { id: 4, value: 4 } })
+  t.deepEqual(await rows.next(), { done: false, value: { id: 5, value: 5 } })
+  t.deepEqual(await rows.next(), { done: true, value: undefined })
+
+  await closeDatabase(database2)
 })
