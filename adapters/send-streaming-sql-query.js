@@ -4,6 +4,7 @@ import type { SQLQuery, Row } from 'rumor-mill/adapters'
 import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 import PgCursor from 'pg-cursor'
+import { fromQueue, fromStream } from 'heliograph'
 
 export default branch({
   async *mysql(
@@ -12,22 +13,8 @@ export default branch({
     },
     query: SQLQuery
   ): AsyncGenerator<Row, void, void> {
-    const stream = pool.query(query).stream()
-    stream.pause()
-
-    let ended = false
-    stream.on('end', () => (ended = true))
-
-    while (!ended) {
-      const data = stream.read()
-      if (data) {
-        yield JSON.parse(JSON.stringify(data))
-      } else {
-        await promiseFromCallback(callback => {
-          stream.once('readable', callback)
-          stream.once('end', callback)
-        })
-      }
+    for await (const row of fromStream(pool.query(query).stream())) {
+      yield JSON.parse(JSON.stringify(row))
     }
   },
 
@@ -60,51 +47,25 @@ export default branch({
     },
     { sql, values }: SQLQuery
   ): AsyncGenerator<Row, void, void> {
-    const queue = []
-    let error
-    let done = false
-    let interrupt = null
-
+    const queue = fromQueue()
     database.each(
       sql,
       values,
-      (err, row) => {
-        if (err) {
-          error = err
+      (error, row) => {
+        if (error) {
+          queue.pushError(error)
         } else {
           queue.push(row)
         }
-
-        if (interrupt) {
-          interrupt()
-        }
       },
-      err => {
-        if (err) {
-          error = err
+      error => {
+        if (error) {
+          queue.pushError(error)
         } else {
-          done = true
-        }
-
-        if (interrupt) {
-          interrupt()
+          queue.end()
         }
       }
     )
-
-    while (true) {
-      if (error) {
-        throw error
-      } else if (queue.length > 0) {
-        yield queue.shift()
-      } else if (done) {
-        return
-      } else {
-        await new Promise(resolve => {
-          interrupt = resolve
-        })
-        interrupt = null
-      }
-    }
+    yield* queue
   }
 })

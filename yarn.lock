@@ -3132,10 +3132,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@0.82.0:
-  version "0.82.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.82.0.tgz#fbec84c0d6cab7877565eca8214d655f3aefb8db"
-  integrity sha512-D7ViTCVJSVv19CB6dFWS9k2iKQlavtkRXn9el0ofVTTpGuybe+EPE8DZwdyohzEt6wRhHV8gwkteWvxdcVuOzg==
+flow-bin@0.83.0:
+  version "0.83.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.83.0.tgz#fd26f5f95758d7701264b3f9a1e1a3d4cbcab1a9"
+  integrity sha512-1K83EL/U9Gh0BaXPKkZe6TRizSmNSKx9Wuws1c8gh7DJEwiburtCxYT+4o7in1+GnNEm3CZWnbnVV8n9HMpiDA==
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -3566,6 +3566,11 @@ has@^1.0.1, has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+heliograph@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/heliograph/-/heliograph-1.3.1.tgz#0d4fb5b2c00eebd6c981fe4becf8ecd026618353"
+  integrity sha512-L867+lQQkE8r7V0bRlxsZD2KsH/8NN73FijlSR8AfCG9NRHvBPzQDlS7/EbwTDQkXUDbuCsxMXq3KKE8qY5BpA==
 
 home-or-tmp@^3.0.0:
   version "3.0.0"
