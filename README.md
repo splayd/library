@@ -1,9 +1,9 @@
 # rumor-mill
 ![npm](https://img.shields.io/npm/v/rumor-mill.svg)
-[![Build Status](https://travis-ci.org/splayd/rumor-mill.svg?branch=master)](https://travis-ci.org/splayd/rumor-mill)
-[![dependencies Status](https://david-dm.org/splayd/rumor-mill/status.svg)](https://david-dm.org/splayd/rumor-mill)
-[![devDependencies Status](https://david-dm.org/splayd/rumor-mill/dev-status.svg)](https://david-dm.org/splayd/rumor-mill?type=dev)
-[![Maintainability](https://api.codeclimate.com/v1/badges/698bc5bde5b97e7c88ea/maintainability)](https://codeclimate.com/github/splayd/rumor-mill/maintainability)
+[![Build Status](https://travis-ci.org/vinsonchuong/rumor-mill.svg?branch=master)](https://travis-ci.org/vinsonchuong/rumor-mill)
+[![dependencies Status](https://david-dm.org/vinsonchuong/rumor-mill/status.svg)](https://david-dm.org/vinsonchuong/rumor-mill)
+[![devDependencies Status](https://david-dm.org/vinsonchuong/rumor-mill/dev-status.svg)](https://david-dm.org/vinsonchuong/rumor-mill?type=dev)
+[![Maintainability](https://api.codeclimate.com/v1/badges/698bc5bde5b97e7c88ea/maintainability)](https://codeclimate.com/github/vinsonchuong/rumor-mill/maintainability)
 
 A functional interface for interacting with databases
 

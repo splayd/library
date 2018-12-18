@@ -7,11 +7,11 @@
     "sql",
     "orm"
   ],
-  "homepage": "https://github.com/splayd/rumor-mill",
-  "bugs": "https://github.com/splayd/rumor-mill/issues",
+  "homepage": "https://github.com/vinsonchuong/rumor-mill",
+  "bugs": "https://github.com/vinsonchuong/rumor-mill/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
-  "repository": "splayd/rumor-mill",
+  "repository": "vinsonchuong/rumor-mill",
   "scripts": {
     "test": "standard -v --fix && flow && ava -v",
     "release": "semantic-release",
