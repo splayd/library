@@ -1,29 +1,19 @@
-/* eslint-disable no-unmodified-loop-condition */
 /* @flow */
-import type { SQLQuery, Row } from 'rumor-mill/adapters'
+/* eslint-disable no-unmodified-loop-condition */
+import type { SQLQuery, Row } from 'rumor-mill/adapters' // eslint-disable-line
 import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 import PgCursor from 'pg-cursor'
 import { fromQueue, fromStream } from 'heliograph'
 
-export default branch({
-  async *mysql(
-    {
-      mysql: { pool }
-    },
-    query: SQLQuery
-  ): AsyncGenerator<Row, void, void> {
+export default branch /*:: <[SQLQuery], AsyncGenerator<Row, void, void>> */ ({ // eslint-disable-line
+  async *mysql({ mysql: { pool } }, query) {
     for await (const row of fromStream(pool.query(query).stream())) {
       yield JSON.parse(JSON.stringify(row))
     }
   },
 
-  async *postgresql(
-    {
-      postgresql: { pool }
-    },
-    { sql, values }: SQLQuery
-  ): AsyncGenerator<Row, void, void> {
+  async *postgresql({ postgresql: { pool } }, { sql, values }) {
     const client = await pool.connect()
     const cursor = client.query(new PgCursor(sql, values))
 
@@ -41,12 +31,7 @@ export default branch({
     })
   },
 
-  async *sqlite(
-    {
-      sqlite: { database }
-    },
-    { sql, values }: SQLQuery
-  ): AsyncGenerator<Row, void, void> {
+  async *sqlite({ sqlite: { database } }, { sql, values }) {
     const queue = fromQueue()
     database.each(
       sql,

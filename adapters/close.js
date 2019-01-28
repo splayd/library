@@ -2,7 +2,7 @@
 import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 
-export default branch({
+export default branch /*:: <[], Promise<void>> */ ({ // eslint-disable-line
   async mysql({ mysql: { pool } }) {
     await promiseFromCallback(callback => pool.end(callback))
   },
