@@ -1,5 +1,6 @@
 /* @flow */
-import type { SQLQuery, Rows } from 'rumor-mill/adapters'
+import type { SQLQuery } from 'rumor-mill/adapters'
+import type { Rows } from 'rumor-mill/interface'
 import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 

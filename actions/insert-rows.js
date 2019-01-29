@@ -1,6 +1,5 @@
 /* @flow */
-import type { Client } from 'rumor-mill/interface'
-import type { Rows } from 'rumor-mill/adapters'
+import type { Client, Rows } from 'rumor-mill/interface'
 import { sendQuery } from 'rumor-mill/actions'
 
 export default async function(

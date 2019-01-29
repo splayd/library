@@ -1,4 +1,4 @@
 /* @flow */
 export * from './column'
-export * from './table'
-export * from './schema'
+export * from './row'
+export * from './rows'

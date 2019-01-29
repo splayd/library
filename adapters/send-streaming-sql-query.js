@@ -1,6 +1,7 @@
 /* @flow */
 /* eslint-disable no-unmodified-loop-condition */
-import type { SQLQuery, Row } from 'rumor-mill/adapters' // eslint-disable-line
+import type { SQLQuery } from 'rumor-mill/adapters' // eslint-disable-line
+import type { Row } from 'rumor-mill/interface' // eslint-disable-line
 import { branch } from 'rumor-mill/interface'
 import { promiseFromCallback } from 'rumor-mill/lib'
 import PgCursor from 'pg-cursor'
