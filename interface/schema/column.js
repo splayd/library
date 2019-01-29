@@ -1,30 +1,28 @@
 /* @flow */
 
 export type Column = boolean | number | string | Date
-
-export const columnTypes = {
-  boolean: true,
-  integer: 0,
-  float: 0.5,
-  string: '',
-  datetime: new Date(),
-  primaryKey: 1
-}
+export type ColumnType =
+  | 'boolean'
+  | 'integer'
+  | 'float'
+  | 'string'
+  | 'datetime'
+  | 'primary-key'
 
 export function getColumnTypeName(
-  columnType: $Values<typeof columnTypes>,
+  columnType: ColumnType,
   clientType: 'mysql' | 'postgresql' | 'sqlite'
 ): string {
   switch (columnType) {
-    case columnTypes.boolean:
+    case 'boolean':
       return 'boolean'
-    case columnTypes.integer:
+    case 'integer':
       return 'integer'
-    case columnTypes.float:
+    case 'float':
       return 'double precision'
-    case columnTypes.string:
+    case 'string':
       return 'text'
-    case columnTypes.datetime:
+    case 'datetime':
       switch (clientType) {
         case 'mysql':
           return 'datetime'
@@ -34,7 +32,7 @@ export function getColumnTypeName(
           return 'datetime'
       }
       break
-    case columnTypes.primaryKey:
+    case 'primary-key':
       switch (clientType) {
         case 'mysql':
           return 'integer auto_increment primary key'

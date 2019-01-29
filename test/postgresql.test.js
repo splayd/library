@@ -4,7 +4,6 @@ import { startContainer, removeContainer } from 'sidelifter'
 import {
   openDatabase,
   closeDatabase,
-  columnTypes,
   createTables,
   insertRows,
   selectRows,
@@ -36,7 +35,7 @@ test('interacting with a PostgreSQL database', async t => {
   )
 
   await createTables(database, {
-    articles: { id: columnTypes.primaryKey, title: columnTypes.string }
+    articles: { id: 'primary-key', title: 'string' }
   })
   await insertRows(database, 'articles', [
     { title: 'Post 1' },
@@ -67,7 +66,7 @@ test('streaming rows', async t => {
   )
 
   await createTables(database, {
-    'time-series': { id: columnTypes.primaryKey, value: columnTypes.integer }
+    'time-series': { id: 'primary-key', value: 'integer' }
   })
   await insertRows(database, 'time-series', [
     { value: 1 },

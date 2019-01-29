@@ -3,7 +3,6 @@ import test from 'ava'
 import {
   openDatabase,
   closeDatabase,
-  columnTypes,
   createTables,
   insertRows,
   selectRows,
@@ -14,10 +13,7 @@ test('interacting with an in-memory SQLite database', async t => {
   const database = await openDatabase('sqlite://')
 
   await createTables(database, {
-    articles: { id: columnTypes.primaryKey, title: columnTypes.string }
-  })
-  await createTables(database, {
-    comments: { id: columnTypes.primaryKey, title: columnTypes.string }
+    articles: { id: 'primary-key', title: 'string' }
   })
 
   await insertRows(database, 'articles', [
@@ -37,7 +33,7 @@ test('interacting with an in-memory SQLite database', async t => {
 test('streaming rows', async t => {
   const database = await openDatabase('sqlite://')
   await createTables(database, {
-    'time-series': { id: columnTypes.primaryKey, value: columnTypes.integer }
+    'time-series': { id: 'primary-key', value: 'integer' }
   })
   await insertRows(database, 'time-series', [
     { value: 1 },
