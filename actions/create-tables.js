@@ -1,26 +1,13 @@
 /* @flow */
-import type { Client } from 'rumor-mill/interface'
+import type { Client, Column } from 'rumor-mill/interface'
 import { getColumnTypeName } from 'rumor-mill/interface'
 import { sendQuery } from 'rumor-mill/actions'
 import { mapValues } from 'lodash'
 
-export default async function<
-  CurrentSchema: {},
-  NewTables: {},
-  Database: {
-    client: Client,
-    schema: CurrentSchema
-  }
->(
-  { client, schema }: Database,
-  newTables: NewTables
-): Promise<{
+export default async function(
   client: Client,
-  schema: {|
-    ...$Exact<CurrentSchema>,
-    ...$Exact<NewTables>
-  |}
-}> {
+  newTables: { [string]: { [string]: Column } }
+): Promise<void> {
   for (const tableName of Object.keys(newTables)) {
     await sendQuery(client, {
       $createTable: {
@@ -33,10 +20,5 @@ export default async function<
         }))
       }
     })
-  }
-
-  return {
-    client,
-    schema: { ...schema, ...newTables }
   }
 }

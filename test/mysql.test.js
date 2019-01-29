@@ -32,25 +32,25 @@ test.after.always(async () => {
 })
 
 test('interacting with a MySQL database', async t => {
-  const database1 = await openDatabase(
+  const database = await openDatabase(
     `mysql://user:password@127.0.0.1:${String(port)}/database`
   )
 
-  const database2 = await createTables(database1, {
+  await createTables(database, {
     articles: { id: columnTypes.primaryKey, title: columnTypes.string }
   })
-  await insertRows(database2, 'articles', [
+  await insertRows(database, 'articles', [
     { title: 'Post 1' },
     { title: 'Post 2' }
   ])
 
-  const articles = await selectRows(database2, 'articles')
+  const articles = await selectRows(database, 'articles')
   t.deepEqual(articles, [
     { id: 1, title: 'Post 1' },
     { id: 2, title: 'Post 2' }
   ])
 
-  await closeDatabase(database2)
+  await closeDatabase(database)
 })
 
 test('attempting to connect with incorrect credentials', async t => {
@@ -63,14 +63,14 @@ test('attempting to connect with incorrect credentials', async t => {
 })
 
 test('streaming rows', async t => {
-  const database1 = await openDatabase(
+  const database = await openDatabase(
     `mysql://user:password@127.0.0.1:${String(port)}/database`
   )
 
-  const database2 = await createTables(database1, {
+  await createTables(database, {
     'time-series': { id: columnTypes.primaryKey, value: columnTypes.integer }
   })
-  await insertRows(database2, 'time-series', [
+  await insertRows(database, 'time-series', [
     { value: 1 },
     { value: 2 },
     { value: 3 },
@@ -78,7 +78,7 @@ test('streaming rows', async t => {
     { value: 5 }
   ])
 
-  const rows = streamRows(database2, 'time-series')
+  const rows = streamRows(database, 'time-series')
   t.deepEqual(await rows.next(), { done: false, value: { id: 1, value: 1 } })
   t.deepEqual(await rows.next(), { done: false, value: { id: 2, value: 2 } })
   t.deepEqual(await rows.next(), { done: false, value: { id: 3, value: 3 } })
@@ -86,5 +86,5 @@ test('streaming rows', async t => {
   t.deepEqual(await rows.next(), { done: false, value: { id: 5, value: 5 } })
   t.deepEqual(await rows.next(), { done: true, value: undefined })
 
-  await closeDatabase(database2)
+  await closeDatabase(database)
 })

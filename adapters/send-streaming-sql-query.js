@@ -6,7 +6,7 @@ import { promiseFromCallback } from 'rumor-mill/lib'
 import PgCursor from 'pg-cursor'
 import { fromQueue, fromStream } from 'heliograph'
 
-export default branch /*:: <[SQLQuery], AsyncGenerator<Row, void, void>> */ ({ // eslint-disable-line
+export default branch /*:: <[SQLQuery], AsyncIterator<Row>> */ ({ // eslint-disable-line
   async *mysql({ mysql: { pool } }, query) {
     for await (const row of fromStream(pool.query(query).stream())) {
       yield JSON.parse(JSON.stringify(row))
