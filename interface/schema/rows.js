@@ -1,4 +1,4 @@
 /* @flow */
-import type { Row } from './'
+import type { Row } from './' // eslint-disable-line
 
-export type Rows = Array<Row>
+export type Rows<R = Row> = Array<R>
