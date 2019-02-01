@@ -14,8 +14,7 @@ export default async function<Row: {}>(
   await sendQuery<Row>(client, {
     $insert: {
       $table: tableName,
-      $columns: Object.keys(rows[0]),
-      $records: rows.map(row => ({ $values: Object.values(row) }))
+      $documents: rows
     }
   })
 }
