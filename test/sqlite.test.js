@@ -76,23 +76,44 @@ test('interacting with an in-memory SQLite database', async t => {
 
 test('streaming rows', async t => {
   const database = await openDatabase('sqlite://')
+
   await createTables(database, {
-    'time-series': { id: 'primary-key', value: 'integer' }
+    'time-series': {
+      id: 'primary-key',
+      time: 'datetime',
+      value: 'integer',
+      good: 'boolean'
+    }
   })
   await insertRows(database, 'time-series', [
-    { value: 1 },
-    { value: 2 },
-    { value: 3 },
-    { value: 4 },
-    { value: 5 }
+    { time: new Date('2018-01-01'), value: 1, good: true },
+    { time: new Date('2018-01-02'), value: 2, good: false },
+    { time: new Date('2018-01-03'), value: 3, good: true },
+    { time: new Date('2018-01-04'), value: 4, good: false },
+    { time: new Date('2018-01-05'), value: 5, good: true }
   ])
 
   const rows = streamRows(database, 'time-series')
-  t.deepEqual(await rows.next(), { done: false, value: { id: 1, value: 1 } })
-  t.deepEqual(await rows.next(), { done: false, value: { id: 2, value: 2 } })
-  t.deepEqual(await rows.next(), { done: false, value: { id: 3, value: 3 } })
-  t.deepEqual(await rows.next(), { done: false, value: { id: 4, value: 4 } })
-  t.deepEqual(await rows.next(), { done: false, value: { id: 5, value: 5 } })
+  t.deepEqual(await rows.next(), {
+    done: false,
+    value: { id: 1, time: Date.parse('2018-01-01'), value: 1, good: 1 }
+  })
+  t.deepEqual(await rows.next(), {
+    done: false,
+    value: { id: 2, time: Date.parse('2018-01-02'), value: 2, good: 0 }
+  })
+  t.deepEqual(await rows.next(), {
+    done: false,
+    value: { id: 3, time: Date.parse('2018-01-03'), value: 3, good: 1 }
+  })
+  t.deepEqual(await rows.next(), {
+    done: false,
+    value: { id: 4, time: Date.parse('2018-01-04'), value: 4, good: 0 }
+  })
+  t.deepEqual(await rows.next(), {
+    done: false,
+    value: { id: 5, time: Date.parse('2018-01-05'), value: 5, good: 1 }
+  })
   t.deepEqual(await rows.next(), { done: true, value: undefined })
 
   await closeDatabase(database)

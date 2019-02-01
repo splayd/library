@@ -9,8 +9,20 @@ import { fromQueue, fromStream } from 'heliograph'
 
 export default branch /*:: <[SQLQuery], AsyncIterator<Row>> */ ({ // eslint-disable-line
   async *mysql({ mysql: { pool } }, query) {
-    for await (const row of fromStream(pool.query(query).stream())) {
-      yield JSON.parse(JSON.stringify(row))
+    const stream = pool
+      .query({
+        ...query,
+        typeCast: (field, next) => {
+          if (field.type === 'TINY' && field.length === 1) {
+            return field.string() === '1'
+          }
+
+          return next()
+        }
+      })
+      .stream()
+    for await (const row of fromStream(stream)) {
+      yield { ...row }
     }
   },
 
