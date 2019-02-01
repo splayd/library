@@ -5,6 +5,7 @@ import {
   closeDatabase,
   readSchema,
   createTables,
+  createIndex,
   insertRows,
   selectRows,
   streamRows
@@ -70,6 +71,20 @@ test('interacting with an in-memory SQLite database', async t => {
       views: 0
     }
   ])
+
+  await createIndex(database, 'articles', ['time'], true)
+  await t.throwsAsync(
+    insertRows(database, 'articles', [
+      {
+        title: 'Post 3',
+        time: new Date('2019-01-01'),
+        public: true,
+        rating: 3.0,
+        views: 5
+      }
+    ]),
+    /UNIQUE constraint failed/
+  )
 
   await closeDatabase(database)
 })

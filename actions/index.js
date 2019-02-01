@@ -8,6 +8,8 @@ export { default as sendStreamingQuery } from './send-streaming-query'
 export { default as createTable } from './create-table'
 export { default as createTables } from './create-tables'
 
+export { default as createIndex } from './create-index'
+
 export { default as insertRows } from './insert-rows'
 export { default as selectRows } from './select-rows'
 export { default as streamRows } from './stream-rows'

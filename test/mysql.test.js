@@ -5,6 +5,7 @@ import {
   openDatabase,
   closeDatabase,
   createTables,
+  createIndex,
   readSchema,
   insertRows,
   selectRows,
@@ -93,6 +94,20 @@ test('interacting with a MySQL database', async t => {
       views: 0
     }
   ])
+
+  await createIndex(database, 'articles', ['time'], true)
+  await t.throwsAsync(
+    insertRows(database, 'articles', [
+      {
+        title: 'Post 3',
+        time: new Date('2019-01-01'),
+        public: true,
+        rating: 3.0,
+        views: 5
+      }
+    ]),
+    /Duplicate entry/
+  )
 
   await closeDatabase(database)
 })
