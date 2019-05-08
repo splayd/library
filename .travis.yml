@@ -1,4 +1,4 @@
-group: travis_latest
+dist: xenial
 services:
 - docker
 language: node_js
